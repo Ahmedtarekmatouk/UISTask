@@ -1,4 +1,4 @@
- -**Product Entry Screen**
+- **Product Entry Screen**
   - Auto-generated product code
   - Product name, unit, price, and initial quantity
   - Saves product to database
@@ -12,7 +12,7 @@
   - Displays all product transactions
   - Filterable by date
   - Uses AJAX for seamless updates
-**Tech Stack**
+- **Tech Stack**
 - ASP.NET Core MVC (.NET 7)
 - Entity Framework Core
 - SQL Server
