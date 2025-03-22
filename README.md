@@ -1,4 +1,4 @@
- **Product Entry Screen**
+ -**Product Entry Screen**
   - Auto-generated product code
   - Product name, unit, price, and initial quantity
   - Saves product to database
