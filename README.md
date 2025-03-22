@@ -10,11 +10,5 @@
   - Saves transaction to database and updates product stock
 - **Transaction Overview Screen**
   - Displays all product transactions
-  - Filterable by date
+  - Filterable by date 
   - Uses AJAX for seamless updates
-- **Tech Stack**
-- ASP.NET Core MVC (.NET 7)
-- Entity Framework Core
-- SQL Server
-- Bootstrap 5
-- jQuery (for AJAX)
