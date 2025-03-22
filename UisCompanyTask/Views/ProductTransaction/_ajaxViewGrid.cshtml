@@ -1,0 +1,74 @@
+﻿@using UisCompanyTask.ViewModel
+@model List<ProductTransactionViewModel>
+
+@{
+    ViewData["Title"] = "Product Transactions";
+
+    int currentPage = ViewBag.PageNumber ?? 1;
+    int pageSize = ViewBag.PageSize ?? 10;
+    string orderBy = ViewBag.OrderBy ?? "Date";
+    bool orderByDesc = ViewBag.OrderByDescending ?? false;
+    bool hasNextPage = ViewBag.HasNextPage ?? false;
+
+    Func<string, string> generateSortLink = column =>
+    {
+        bool isSame = column == orderBy;
+        bool desc = isSame ? !orderByDesc : false;
+        return Url.Action("Index", new { pageNumber = currentPage, pageSize, orderBy = column, orderByDescending = desc });
+    };
+}
+
+<div class="container mt-4">
+    <h3 class="mb-3 text-primary">Product Transactions</h3>
+
+    <table class="table table-sm table-striped table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>
+                    <a href="@generateSortLink("productName")">Product Name@(orderBy == "productName" ? (orderByDesc ? " ↓" : " ↑") : "")</a>
+                </th>
+                <th>
+                    <a href="@generateSortLink("Quantity")">Quantity@(orderBy == "Quantity" ? (orderByDesc ? " ↓" : " ↑") : "")</a>
+                </th>
+                <th>
+                    <a href="@generateSortLink("Unit")">Unit@(orderBy == "Unit" ? (orderByDesc ? " ↓" : " ↑") : "")</a>
+                </th>
+                <th><a href="@generateSortLink("Date")">Date@(orderBy == "Date" ? (orderByDesc ? " ↓" : " ↑") : "")</a>
+                </th>
+                <th>
+                    <a href="@generateSortLink("TotalPrice")">Total Price@(orderBy == "TotalPrice" ? (orderByDesc ? " ↓" : " ↑") : "")</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.productName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Unit</td>
+                    <td>@item.Date.ToShortDateString()</td>
+                    <td>@item.TotalPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <nav class="d-flex justify-content-between align-items-center">
+        <ul class="pagination mb-0">
+            <li class="page-item @(currentPage <= 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = currentPage - 1, pageSize, orderBy, orderByDescending = orderByDesc })">Previous</a>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Page @currentPage</span>
+            </li>
+            <li class="page-item @(hasNextPage ? "" : "disabled")">
+                <a class="page-link" href="@Url.Action("Index", new { pageNumber = currentPage + 1, pageSize, orderBy, orderByDescending = orderByDesc })">Next</a>
+            </li>
+        </ul>
+
+        <div>
+            <small class="text-muted">Showing page @currentPage</small>
+        </div>
+    </nav>
+</div>

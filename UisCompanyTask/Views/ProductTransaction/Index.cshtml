@@ -1,0 +1,42 @@
+﻿@using UisCompanyTask.ViewModel
+@model List<ProductTransactionViewModel>
+
+<form id="search-form" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <input type="date" name="TransactionDate" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div id="Transactions" >
+    <partial name="_ajaxViewGrid" model="Model"/>
+</div>
+@section scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#search-form').submit(function (e) {
+                e.preventDefault();
+                console.log('Form submitted via AJAX');
+
+                const data = $(this).serialize();
+
+                $.ajax({
+                    url: '/ProductTransaction/Search',
+                    type: 'GET',
+                    data: data,
+                    success: function (html) {
+                        $('#Transactions').html(html);
+                    },
+                    error: function () {
+                        alert("Failed to load filtered data.");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+
+
+
